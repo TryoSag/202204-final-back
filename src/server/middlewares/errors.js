@@ -15,7 +15,7 @@ const notFoundError = (req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 const generalError = (error, req, res, next) => {
   debug(chalk.red(error.customMessage));
-  const message = error.message ?? "General pete";
+  const message = error.message ?? "General Error";
   const statusCode = error.statusCode ?? 500;
 
   res.status(statusCode).json({ error: true, message });
