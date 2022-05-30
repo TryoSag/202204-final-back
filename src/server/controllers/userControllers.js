@@ -12,8 +12,8 @@ const userLogin = async (req, res, next) => {
   if (!user) {
     const error = customError(
       403,
-      "User or password incorrect",
-      "User incorrect"
+      "User incorrect",
+      "User or password incorrect"
     );
 
     next(error);
@@ -29,8 +29,8 @@ const userLogin = async (req, res, next) => {
   if (!rightPassword) {
     const error = customError(
       403,
-      "User or password incorrect",
-      "Password incorrect"
+      "Password incorrect",
+      "User or password incorrect"
     );
 
     next(error);

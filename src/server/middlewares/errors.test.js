@@ -2,14 +2,10 @@ const { notFoundError, generalError } = require("./errors");
 
 describe("Given the notFoundError function", () => {
   describe("When it's called", () => {
-    test("Then it should call next with error with status code 404 and message and custom message 'Endpoint not found'", () => {
+    test("Then it should call next with error with and 'Endpoint not found'", () => {
       const next = jest.fn();
 
-      const expectedError = {
-        statusCode: 404,
-        message: "Endpoint not found",
-        customMessage: "Endpoint not found",
-      };
+      const expectedError = new Error("Endpoint not found");
 
       notFoundError(null, null, next);
 
