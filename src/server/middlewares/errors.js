@@ -1,0 +1,27 @@
+require("dotenv").config();
+const debug = require("debug")("petsHouse:server:middlewares:errors");
+const chalk = require("chalk");
+
+const notFoundError = (req, res, next) => {
+  const error = {
+    statusCode: 404,
+    message: "Endpoint not found",
+    customMessage: "Endpoint not found",
+  };
+
+  next(error);
+};
+
+// eslint-disable-next-line no-unused-vars
+const generalError = (error, req, res, next) => {
+  debug(chalk.red(error.customMessage));
+  const message = error.message ?? "General pete";
+  const statusCode = error.statusCode ?? 500;
+
+  res.status(statusCode).json({ error: true, message });
+};
+
+module.exports = {
+  notFoundError,
+  generalError,
+};
