@@ -1,13 +1,10 @@
 require("dotenv").config();
 const debug = require("debug")("petsHouse:server:middlewares:errors");
 const chalk = require("chalk");
+const customError = require("../utils/customError");
 
 const notFoundError = (req, res, next) => {
-  const error = {
-    statusCode: 404,
-    message: "Endpoint not found",
-    customMessage: "Endpoint not found",
-  };
+  const error = customError(404, "Endpoint not found", "Endpoint not found");
 
   next(error);
 };
