@@ -41,6 +41,37 @@ const userLogin = async (req, res, next) => {
   res.status(200).json({ token });
 };
 
+const userRegister = async (req, res, next) => {
+  const { name, username, password } = req.body;
+  const user = await User.findOne({ username });
+
+  if (user) {
+    const error = customError(
+      409,
+      "This user already exists",
+      "This user already exists"
+    );
+
+    next(error);
+    return;
+  }
+
+  const encryptedPassword = await bcrypt.hash(password, 10);
+  if (!encryptedPassword) {
+    const error = customError(400, "Wrong user data", "Wrong user data");
+
+    next(error);
+    return;
+  }
+
+  const newUser = { name, username, password: encryptedPassword };
+
+  await User.create(newUser);
+
+  res.status(201).json(newUser);
+};
+
 module.exports = {
   userLogin,
+  userRegister,
 };
