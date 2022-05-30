@@ -44,4 +44,5 @@
       "!src/database/index.js",
       "!.eslintrc.js"
     ]
+  }
 }
