@@ -1,8 +1,9 @@
 require("dotenv").config();
 const debug = require("debug")("petsHouse:server:serverInitialize");
 const chalk = require("chalk");
+const app = require(".");
 
-const serverInitialize = (port) => {
+const serverInitialize = (port) =>
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
       debug(chalk.yellow(`Server listening on port ${port}`));
@@ -16,6 +17,5 @@ const serverInitialize = (port) => {
       }
     });
   });
-};
 
 module.exports = serverInitialize;
