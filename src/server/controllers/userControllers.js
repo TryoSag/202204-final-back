@@ -55,18 +55,20 @@ const userRegister = async (req, res, next) => {
     next(error);
     return;
   }
-  try {
-    const encryptedPassword = await bcrypt.hash(password, 10);
-    const newUser = { name, username, password: encryptedPassword };
 
-    await User.create(newUser);
-
-    res.status(201).json(newUser);
-  } catch {
+  const encryptedPassword = await bcrypt.hash(password, 10);
+  if (!encryptedPassword) {
     const error = customError(400, "Wrong user data", "Wrong user data");
 
     next(error);
+    return;
   }
+
+  const newUser = { name, username, password: encryptedPassword };
+
+  await User.create(newUser);
+
+  res.status(201).json(newUser);
 };
 
 module.exports = {
