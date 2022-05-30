@@ -1,8 +1,8 @@
-const customError = (statusCode, customMessage, originalMessage = "") => {
-  const error = new Error(originalMessage);
+const customError = (statusCode, customMessage, message = "") => {
+  const error = new Error(message);
   error.statusCode = statusCode;
   error.customMessage = customMessage;
-  error.message = originalMessage;
+  error.message = message;
 
   return error;
 };
