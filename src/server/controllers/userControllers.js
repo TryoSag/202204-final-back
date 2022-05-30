@@ -2,6 +2,7 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken");
 const User = require("../../database/models/User");
+const customError = require("../utils/customError");
 
 const userLogin = async (req, res, next) => {
   const { username, password } = req.body;
@@ -9,11 +10,11 @@ const userLogin = async (req, res, next) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    const error = {
-      statusCode: 403,
-      message: "User or password incorrect",
-      customMessage: "User incorrect",
-    };
+    const error = customError(
+      403,
+      "User or password incorrect",
+      "User incorrect"
+    );
 
     next(error);
     return;
@@ -26,11 +27,11 @@ const userLogin = async (req, res, next) => {
 
   const rightPassword = await bcrypt.compare(password, user.password);
   if (!rightPassword) {
-    const error = {
-      statusCode: 403,
-      message: "User or password incorrect",
-      customMessage: "Password incorrect",
-    };
+    const error = customError(
+      403,
+      "User or password incorrect",
+      "Password incorrect"
+    );
 
     next(error);
     return;
