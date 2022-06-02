@@ -1,0 +1,59 @@
+{
+  "info": {
+    "_postman_id": "6486084c-11c8-4562-979b-9d959ffd2964",
+    "name": "Pet's House",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20646533"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{origin}}/user/register",
+          "host": ["{{origin}}"],
+          "path": ["user", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{origin}}/user/login",
+          "host": ["{{origin}}"],
+          "path": ["user", "login"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "origin",
+      "value": "https://pets-house-albert-sagol.onrender.com",
+      "type": "string"
+    }
+  ]
+}
