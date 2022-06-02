@@ -18,4 +18,17 @@ describe("Given the getPets function", () => {
       expect(res.json).toBeCalledWith(groupOfPets);
     });
   });
+
+  describe("When it's called and the databse is empty", () => {
+    test("Then it should call next with an error with message 'Pets not found'", async () => {
+      const next = jest.fn();
+      const emptyDatabase = [];
+      Pet.find = jest.fn().mockResolvedValue(emptyDatabase);
+      const expectedError = new Error("Pets not found");
+
+      await getPets(null, null, next);
+
+      expect(next).toBeCalledWith(expectedError);
+    });
+  });
 });
