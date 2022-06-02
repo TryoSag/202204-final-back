@@ -58,11 +58,12 @@ describe("Given the userLogin function", () => {
 
 describe("Given the userRegister function", () => {
   describe("When it is called with a request with correct name, username and password", () => {
-    test("Then it should call response with status with 201 and the new user data", async () => {
+    test("Then it should call response with status with 201 and the new user username", async () => {
       const req = {
         body: {
           name: "correctName",
           username: "correctUsername",
+          adminUser: false,
           password: "correctPassword",
         },
       };
@@ -75,9 +76,7 @@ describe("Given the userRegister function", () => {
       User.create = jest.fn();
       const expectedStatus = 201;
       const expectedUser = {
-        name: "correctName",
         username: "correctUsername",
-        password: "hashedPassword",
       };
 
       await userRegister(req, res);
