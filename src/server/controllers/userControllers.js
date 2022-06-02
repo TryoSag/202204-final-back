@@ -19,11 +19,6 @@ const userLogin = async (req, res, next) => {
     next(error);
     return;
   }
-  const userData = {
-    username: user.username,
-    name: user.name,
-    adminUser: user.adminUser,
-  };
 
   const rightPassword = await bcrypt.compare(password, user.password);
   if (!rightPassword) {
@@ -36,13 +31,19 @@ const userLogin = async (req, res, next) => {
     next(error);
     return;
   }
+
+  const userData = {
+    username: user.username,
+    adminUser: user.adminUser,
+  };
+
   const token = jsonwebtoken.sign(userData, process.env.JWT_SECRET);
 
   res.status(200).json({ token });
 };
 
 const userRegister = async (req, res, next) => {
-  const { name, username, password } = req.body;
+  const { name, username, adminUser, password } = req.body;
   const user = await User.findOne({ username });
 
   if (user) {
@@ -64,11 +65,11 @@ const userRegister = async (req, res, next) => {
     return;
   }
 
-  const newUser = { name, username, password: encryptedPassword };
+  const newUser = { name, username, adminUser, password: encryptedPassword };
 
   await User.create(newUser);
 
-  res.status(201).json(newUser);
+  res.status(201).json({ username });
 };
 
 module.exports = {

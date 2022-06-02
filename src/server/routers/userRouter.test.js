@@ -62,7 +62,7 @@ describe("Given a POST/user/login endpoint", () => {
 
 describe("Given a POST/user/register endpoint", () => {
   describe("When it receives a request with new user data", () => {
-    test("Then it should respnse with status 201 and the new user data with the password encrypted", async () => {
+    test("Then it should respnse with status 201 and the new user username", async () => {
       const newUserData = {
         name: "testNewUser",
         username: "testNewUser",
@@ -70,15 +70,13 @@ describe("Given a POST/user/register endpoint", () => {
       };
 
       const {
-        _body: { name, username, password },
+        _body: { username },
       } = await request(app)
         .post("/user/register")
         .send(newUserData)
         .expect(201);
 
-      expect(name).toBe(newUserData.name);
       expect(username).toBe(newUserData.username);
-      expect(password).not.toBe(newUserData.password);
     });
   });
 });
