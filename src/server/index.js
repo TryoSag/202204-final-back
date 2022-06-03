@@ -4,8 +4,9 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const { generalError, notFoundError } = require("./middlewares/errors");
 const userRouter = require("./routers/userRouter");
-const auth = require("./middlewares/auth");
+
 const petsRouter = require("./routers/petsRouter");
+const auth = require("./middlewares/auth");
 
 const app = express();
 
