@@ -16,7 +16,7 @@ const PetSchema = new Schema({
   description: {
     type: String,
   },
-  SpecialTreatment: {
+  specialTreatment: {
     type: String,
   },
 });

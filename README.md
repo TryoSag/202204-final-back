@@ -10,6 +10,7 @@
 - name: string
 - type: string - dog | cat
 - sex: string - male | female
+- picture:
 - age: number
 - description: string
 - SpecialTreatment: string

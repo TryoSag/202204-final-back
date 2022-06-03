@@ -5,6 +5,9 @@ const helmet = require("helmet");
 const { generalError, notFoundError } = require("./middlewares/errors");
 const userRouter = require("./routers/userRouter");
 
+const petsRouter = require("./routers/petsRouter");
+const auth = require("./middlewares/auth");
+
 const app = express();
 
 app.use(cors());
@@ -13,6 +16,7 @@ app.use(helmet());
 app.use(express.json());
 
 app.use("/user", userRouter);
+app.use("/pets", auth, petsRouter);
 
 app.use(notFoundError);
 app.use(generalError);

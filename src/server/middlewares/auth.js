@@ -4,17 +4,18 @@ const jwt = require("jsonwebtoken");
 const customError = require("../utils/customError");
 
 const auth = (req, res, next) => {
-  const { Authorization } = req.headers;
+  const { authorization } = req.headers;
 
   try {
-    if (!Authorization.includes("Bearer ")) {
+    if (!authorization.includes("Bearer")) {
       debug(chalk.red("Authorization does not include a token bearer"));
       throw new Error();
     }
+    const token = authorization.replace("Bearer ", "");
 
-    const token = Authorization.replace("Bearer ", "");
+    const userId = jwt.verify(token, process.env.JWT_SECRET);
 
-    jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = userId;
 
     debug(chalk.green("Received a valid token"));
 

@@ -5,7 +5,7 @@ describe("Given the auth function", () => {
   describe("When it receives a request with a valid token", () => {
     test("Then it should call next", () => {
       const req = {
-        headers: { Authorization: "Bearer validToken" },
+        headers: { authorization: "Bearer validToken" },
       };
       const next = jest.fn();
       jwt.verify = jest.fn().mockReturnValue(true);
@@ -19,7 +19,7 @@ describe("Given the auth function", () => {
   describe("When it receives a request with invalid token", () => {
     test("Then it should call next with error with message 'Unauthorized'", () => {
       const req = {
-        headers: { Authorization: "InvalidToken" },
+        headers: { authorization: "InvalidToken" },
       };
       const next = jest.fn();
       const expectedError = new Error("Unauthorized");
