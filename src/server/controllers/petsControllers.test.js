@@ -1,5 +1,5 @@
 const Pet = require("../../database/models/Pet");
-const getPets = require("./petsControllers");
+const { getPets } = require("./petsControllers");
 
 describe("Given the getPets function", () => {
   describe("When it's called and there are pets in database", () => {
