@@ -14,8 +14,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await User.create(mockedUsers[0]);
-  await User.create(mockedUsers[1]);
+  await request(app).post("/user/register").send(mockedUsers[0]).expect(201);
 });
 
 afterEach(async () => {
@@ -31,8 +30,8 @@ describe("Given a POST/user/login endpoint", () => {
   describe("When it receives a request with an existing user in the database", () => {
     test("Then it should respond with a status 200 and a token", async () => {
       const user = {
-        username: "testUser1",
-        password: "testUser1",
+        username: "testUser0",
+        password: "testUser0",
       };
 
       const {
@@ -66,6 +65,7 @@ describe("Given a POST/user/register endpoint", () => {
       const newUserData = {
         name: "testNewUser",
         username: "testNewUser",
+        eMail: "testNewUser",
         password: "testNewUser",
       };
 

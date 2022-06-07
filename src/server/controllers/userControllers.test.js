@@ -64,6 +64,7 @@ describe("Given the userRegister function", () => {
           name: "correctName",
           username: "correctUsername",
           adminUser: false,
+          eMail: "correcteMail",
           password: "correctPassword",
         },
       };

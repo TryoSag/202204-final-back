@@ -8,9 +8,10 @@
 ## Animals
 
 - name: string
+- id: objId
 - type: string - dog | cat
 - sex: string - male | female
 - picture:
 - age: number
 - description: string
-- SpecialTreatment: string
+- specialTreatment: string
