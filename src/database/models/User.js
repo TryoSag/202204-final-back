@@ -13,6 +13,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  eMail: {
+    type: String,
+    required: true,
+  },
   adminUser: {
     type: Boolean,
   },

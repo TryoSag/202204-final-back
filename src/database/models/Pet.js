@@ -10,6 +10,9 @@ const PetSchema = new Schema({
   sex: {
     type: String,
   },
+  picture: {
+    type: String,
+  },
   age: {
     type: Number,
   },

@@ -35,6 +35,7 @@ const userLogin = async (req, res, next) => {
   const userData = {
     username: user.username,
     adminUser: user.adminUser,
+    eMail: user.eMail,
   };
 
   const token = jsonwebtoken.sign(userData, process.env.JWT_SECRET);
@@ -43,7 +44,7 @@ const userLogin = async (req, res, next) => {
 };
 
 const userRegister = async (req, res, next) => {
-  const { name, username, adminUser, password } = req.body;
+  const { name, username, adminUser, eMail, password } = req.body;
   const user = await User.findOne({ username });
 
   if (user) {
@@ -65,7 +66,13 @@ const userRegister = async (req, res, next) => {
     return;
   }
 
-  const newUser = { name, username, adminUser, password: encryptedPassword };
+  const newUser = {
+    name,
+    username,
+    adminUser,
+    eMail,
+    password: encryptedPassword,
+  };
 
   await User.create(newUser);
 

@@ -16,7 +16,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
-  await request(app).post("/user/register").send(mockedUsers[1]).expect(201);
+  await request(app).post("/user/register").send(mockedUsers[0]).expect(201);
 });
 
 afterEach(async () => {
@@ -37,8 +37,8 @@ describe("Given the GET/pets/pets endpoint", () => {
       } = await request(app)
         .post("/user/login")
         .send({
-          username: mockedUsers[1].username,
-          password: mockedUsers[1].password,
+          username: mockedUsers[0].username,
+          password: mockedUsers[0].password,
         })
         .expect(200);
 
