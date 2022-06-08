@@ -15,15 +15,15 @@ const getPets = async (req, res, next) => {
 
 const deletePet = async (req, res, next) => {
   const { id } = req.params;
-  const petDeleted = await Pet.findByIdAndDelete(id);
+  try {
+    await Pet.findByIdAndDelete(id);
 
-  if (!petDeleted) {
+    res.status(200);
+  } catch {
     const error = customError(204, "Pet not found", "Pet not found");
 
     next(error);
-    return;
   }
-  res.status(200);
 };
 
 module.exports = { getPets, deletePet };
