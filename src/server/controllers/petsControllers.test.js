@@ -73,7 +73,7 @@ describe("Given the createPet function", () => {
       await createPet(req, res);
 
       expect(res.status).toBeCalledWith(expectedStatus);
-      expect(res.json).toBeCalledWith(newPet);
+      expect(res.json).toBeCalledWith({ newPet });
     });
   });
 

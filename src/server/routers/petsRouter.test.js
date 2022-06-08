@@ -78,3 +78,32 @@ describe("Given the DELETE/pets/delete endpoint", () => {
     });
   });
 });
+
+describe("Given the POST/pets/ endpoint", () => {
+  describe("When it receives a request with the newPet and a correct token", () => {
+    test("Then it should create the pet in database and return status 201 and the newPet", async () => {
+      const expectedPetsOnDatabase = 1;
+      const {
+        body: { token },
+      } = await request(app)
+        .post("/user/login")
+        .send({
+          username: mockedUsers[0].username,
+          password: mockedUsers[0].password,
+        })
+        .expect(200);
+
+      const {
+        request: { _data: newPet },
+      } = await request(app)
+        .post("/pets/")
+        .send(mockedPets[0])
+        .set("Authorization", `Bearer ${token}`)
+        .expect(201);
+      const petsOnDatabase = await Pet.find();
+
+      expect(petsOnDatabase).toHaveLength(expectedPetsOnDatabase);
+      expect(newPet).toEqual(mockedPets[0]);
+    });
+  });
+});
