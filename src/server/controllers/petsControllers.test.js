@@ -37,7 +37,7 @@ describe("Given the deletePet function", () => {
   describe("When it's called and receives a request with id and there are a pet with this id in the database", () => {
     test("Then it should call the response with status 200", async () => {
       const req = { params: { id: "existantId" } };
-      const res = { status: jest.fn() };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
       Pet.findByIdAndDelete = jest.fn().mockResolvedValue();
       const expectedStatus = 200;
 

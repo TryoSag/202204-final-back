@@ -15,10 +15,11 @@ const getPets = async (req, res, next) => {
 
 const deletePet = async (req, res, next) => {
   const { id } = req.params;
+
   try {
     await Pet.findByIdAndDelete(id);
 
-    res.status(200);
+    res.status(200).json({});
   } catch {
     const error = customError(204, "Pet not found", "Pet not found");
 
