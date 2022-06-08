@@ -1,5 +1,5 @@
 const express = require("express");
-const getPets = require("../controllers/petsControllers");
+const { getPets } = require("../controllers/petsControllers");
 
 const petsRouter = express.Router();
 

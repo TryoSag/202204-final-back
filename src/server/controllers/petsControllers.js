@@ -13,4 +13,17 @@ const getPets = async (req, res, next) => {
   res.status(200).json(pets);
 };
 
-module.exports = getPets;
+const deletePet = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    await Pet.findByIdAndDelete(id);
+
+    res.status(200);
+  } catch {
+    const error = customError(204, "Pet not found", "Pet not found");
+
+    next(error);
+  }
+};
+
+module.exports = { getPets, deletePet };
