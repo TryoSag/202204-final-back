@@ -1,5 +1,5 @@
 const Pet = require("../../database/models/Pet");
-const { getPets, deletePet } = require("./petsControllers");
+const { getPets, deletePet, createPet } = require("./petsControllers");
 
 describe("Given the getPets function", () => {
   describe("When it's called and there are pets in database", () => {
@@ -41,7 +41,7 @@ describe("Given the deletePet function", () => {
       Pet.findByIdAndDelete = jest.fn().mockResolvedValue();
       const expectedStatus = 200;
 
-      await deletePet(req, res, null);
+      await deletePet(req, res);
 
       expect(res.status).toBeCalledWith(expectedStatus);
     });
@@ -55,6 +55,36 @@ describe("Given the deletePet function", () => {
       const expectedError = new Error("Pet not found");
 
       await deletePet(req, null, next);
+
+      expect(next).toBeCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given the createPet function", () => {
+  describe("When it's called and receives a request with a newPet inside", () => {
+    test("Then it should call response with status 201 and json with the newPet", async () => {
+      const newPet = "testPet";
+      const req = { body: { newPet } };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+      Pet.create = jest.fn().mockResolvedValue();
+      const expectedStatus = 201;
+
+      await createPet(req, res);
+
+      expect(res.status).toBeCalledWith(expectedStatus);
+      expect(res.json).toBeCalledWith(newPet);
+    });
+  });
+
+  describe("When it's called and receives a request without a pet", () => {
+    test("Then it should call next with error with message 'Error at create'", async () => {
+      const req = { body: { newPet: undefined } };
+      const next = jest.fn();
+      Pet.create = jest.fn().mockRejectedValue();
+      const expectedError = new Error("Error at create");
+
+      await createPet(req, null, next);
 
       expect(next).toBeCalledWith(expectedError);
     });

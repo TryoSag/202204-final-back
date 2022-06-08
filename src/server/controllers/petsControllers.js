@@ -35,7 +35,7 @@ const createPet = async (req, res, next) => {
 
     res.status(201).json(newPet);
   } catch {
-    const error = customError(409, "Error on creation", "Error on creation");
+    const error = customError(409, "Error at create", "Error at create");
 
     next(error);
   }
