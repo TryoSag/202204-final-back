@@ -33,7 +33,7 @@ const createPet = async (req, res, next) => {
   try {
     await Pet.create(newPet);
 
-    res.status(201).json(newPet);
+    res.status(201).json({ newPet });
   } catch {
     const error = customError(409, "Error at create", "Error at create");
 
