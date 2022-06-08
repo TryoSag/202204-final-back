@@ -31,7 +31,7 @@ afterAll(async () => {
 
 describe("Given the GET/pets/pets endpoint", () => {
   describe("When it receives a request of list of pets and a correct token", () => {
-    test("Then it should with status 200 and the list of pets", async () => {
+    test("Then it should return status 200 and the list of pets", async () => {
       const {
         body: { token },
       } = await request(app)
@@ -47,9 +47,34 @@ describe("Given the GET/pets/pets endpoint", () => {
 
       const { body: receivedPets } = await request(app)
         .get("/pets")
-        .set("Authorization", `Bearer ${token}`);
+        .set("Authorization", `Bearer ${token}`)
+        .expect(200);
 
       expect(receivedPets).toHaveLength(2);
+    });
+  });
+});
+
+describe("Given the DELETE/pets/delete endpoint", () => {
+  describe("When it receives a request with the id of a pet and a correct token", () => {
+    test("Then it should delete pet from the database and return status 200", async () => {
+      const {
+        body: { token },
+      } = await request(app)
+        .post("/user/login")
+        .send({
+          username: mockedUsers[0].username,
+          password: mockedUsers[0].password,
+        })
+        .expect(200);
+
+      const petCreated = await Pet.create(mockedPets[0]);
+      const { id } = petCreated;
+
+      await request(app)
+        .delete(`/pets/${id}`)
+        .set("Authorization", `Bearer ${token}`)
+        .expect(200);
     });
   });
 });
