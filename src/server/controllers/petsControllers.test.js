@@ -63,17 +63,18 @@ describe("Given the deletePet function", () => {
 
 describe("Given the createPet function", () => {
   describe("When it's called and receives a request with a newPet inside", () => {
-    test("Then it should call response with status 201 and json with the newPet", async () => {
+    test("Then it should call response with status 201 and json with the newPet plus id", async () => {
       const newPet = "testPet";
       const req = { body: { newPet } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
-      Pet.create = jest.fn().mockResolvedValue();
+      const createdPet = "testPetPlusId";
+      Pet.create = jest.fn().mockResolvedValue(createdPet);
       const expectedStatus = 201;
 
       await createPet(req, res);
 
       expect(res.status).toBeCalledWith(expectedStatus);
-      expect(res.json).toBeCalledWith({ newPet });
+      expect(res.json).toBeCalledWith(createdPet);
     });
   });
 
