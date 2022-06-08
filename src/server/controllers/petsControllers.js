@@ -28,7 +28,7 @@ const deletePet = async (req, res, next) => {
 };
 
 const createPet = async (req, res, next) => {
-  const { newPet } = req.body;
+  const newPet = req.body;
 
   try {
     const createdPet = await Pet.create(newPet);
